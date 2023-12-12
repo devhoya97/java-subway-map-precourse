@@ -13,7 +13,14 @@ public class StationRepository {
     }
 
     public static void addStation(Station station) {
+        validateDuplication(station);
         stations.add(station);
+    }
+
+    private static void validateDuplication(Station station) {
+        if (stations.contains(station)) {
+            throw new IllegalArgumentException("추가하려는 역 이름이 중복됩니다.");
+        }
     }
 
     public static boolean deleteStation(String name) {
