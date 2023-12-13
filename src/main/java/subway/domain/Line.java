@@ -25,14 +25,21 @@ public class Line {
     }
 
     public void addStation(Station newStation, Station prevStation, Station nextStation) {
+        validateIsStationNotInLine(newStation);
+
         int prevStationIndex = stations.indexOf(prevStation);
         int nextStationIndex = stations.indexOf(nextStation);
-
         if (nextStationIndex - prevStationIndex != 1) {
             throw new IllegalArgumentException("노선에서 갈래길은 생길 수 없습니다.");
         }
 
         stations.add(nextStationIndex, newStation);
+    }
+
+    private void validateIsStationNotInLine(Station station) {
+        if (stations.contains(station)) {
+            throw new IllegalArgumentException(station.getName() + "은 이미 노선에 포함되어 있습니다.");
+        }
     }
 
     public void deleteStation(Station station) {
