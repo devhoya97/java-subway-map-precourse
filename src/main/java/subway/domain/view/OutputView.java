@@ -2,11 +2,16 @@ package subway.domain.view;
 
 import subway.domain.command.Command;
 import subway.domain.command.MainCommand;
+import subway.domain.command.StationManageCommand;
 
 public class OutputView {
 
     public void printMessage(String message) {
         System.out.println(message);
+    }
+
+    public void printErrorMessage(String errorMessage) {
+        System.out.println("[ERROR] " + errorMessage);
     }
 
     public void printMainScreen() {
@@ -16,7 +21,10 @@ public class OutputView {
         }
     }
 
-    public void printErrorMessage(String errorMessage) {
-        System.out.println("[ERROR] " + errorMessage);
+    public void printStationManageScreen() {
+        System.out.println("## 역 관리 화면");
+        for (Command stationManageCommand : StationManageCommand.values()) {
+            System.out.println(stationManageCommand.get() + ". " + stationManageCommand.getName());
+        }
     }
 }
