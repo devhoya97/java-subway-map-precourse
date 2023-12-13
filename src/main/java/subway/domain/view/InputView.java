@@ -5,6 +5,7 @@ import java.util.Scanner;
 import subway.domain.Station;
 import subway.domain.StationRepository;
 import subway.domain.command.Command;
+import subway.domain.command.LineManageCommand;
 import subway.domain.command.MainCommand;
 import subway.domain.command.StationManageCommand;
 
@@ -89,6 +90,30 @@ public class InputView {
                 outputView.printErrorMessage(illegalArgumentException.getMessage());
             }
         }
+    }
+
+    public Command getValidLineManageCommand() {
+        outputView.printLineManageScreen();
+        while (true) {
+            try {
+                return getLineManageCommand();
+            } catch (IllegalArgumentException illegalArgumentException) {
+                outputView.printErrorMessage(illegalArgumentException.getMessage());
+            }
+        }
+    }
+
+    private Command getLineManageCommand() {
+        System.out.println("## 원하는 기능을 선택하세요.");
+        String input = scanner.nextLine();
+
+        for (Command lineManageCommand : LineManageCommand.values()) {
+            if (Objects.equals(lineManageCommand.get(), input)) {
+                return lineManageCommand;
+            }
+        }
+
+        throw new IllegalArgumentException("준비된 기능이 아닙니다.");
     }
 
 }
