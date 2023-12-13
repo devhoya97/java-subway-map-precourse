@@ -1,5 +1,7 @@
 package subway.domain;
 
+import java.util.Objects;
+
 public class Line {
     private static final int MIN_NAME_LENGTH = 2;
     private String name;
@@ -16,6 +18,10 @@ public class Line {
 
     public String getName() {
         return name;
+    }
+
+    public boolean isSameName(Line line) {
+        return Objects.equals(this.name, line.name);
     }
 
     // 추가 기능 구현
