@@ -25,21 +25,21 @@ public class Line {
         }
     }
 
-    public void addStation(Station newStation, Station prevStation, Station nextStation) {
+    public void addStation(Station newStation, int order) {
         validateIsStationNotInLine(newStation);
-
-        int prevStationIndex = stations.indexOf(prevStation);
-        int nextStationIndex = stations.indexOf(nextStation);
-        if (nextStationIndex - prevStationIndex != 1) {
-            throw new IllegalArgumentException("노선에서 갈래길은 생길 수 없습니다.");
-        }
-
-        stations.add(nextStationIndex, newStation);
+        validateOrder(order);
+        stations.add(order - 1, newStation);
     }
 
     private void validateIsStationNotInLine(Station station) {
         if (stations.contains(station)) {
             throw new IllegalArgumentException(station.getName() + "은 이미 노선에 포함되어 있습니다.");
+        }
+    }
+
+    private void validateOrder(int order) {
+        if (order < 0 || order > stations.size()) {
+            throw new IllegalArgumentException("등록하려는 구간의 순서가 유효하지 않습니다.");
         }
     }
 

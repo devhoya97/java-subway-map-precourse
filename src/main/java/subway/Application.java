@@ -17,7 +17,7 @@ public class Application {
         StationRepository.addStation(newStation);
 
         Line line = new Line("8호선", upBound, downBound);
-        line.addStation(newStation, upBound, downBound);
+        line.addStation(newStation, 2);
 
         System.out.println(line.getStations());
     }

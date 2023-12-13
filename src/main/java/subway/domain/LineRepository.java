@@ -31,7 +31,7 @@ public class LineRepository {
         lines.remove(line);
     }
 
-    private static Line findLineByName(String name) {
+    public static Line findLineByName(String name) {
         for (Line line : lines) {
             if (Objects.equals(line.getName(), name)) {
                 return line;

@@ -187,4 +187,40 @@ public class InputView {
 
         throw new IllegalArgumentException("준비된 기능이 아닙니다.");
     }
+
+    public void registerSection() {
+        while (true) {
+            try {
+                Line line = findLineByInput();
+                Station stationForLineRegister = findStationByInput();
+                line.addStation(stationForLineRegister, getOrder());
+                outputView.printInfoMessage("구간이 등록되었습니다.");
+                break;
+            } catch (IllegalArgumentException illegalArgumentException) {
+                outputView.printErrorMessage(illegalArgumentException.getMessage());
+            }
+        }
+    }
+
+    private Line findLineByInput() {
+        System.out.println("## 노선을 입력하세요.");
+
+        return LineRepository.findLineByName(scanner.nextLine().trim());
+    }
+
+    private Station findStationByInput() {
+        System.out.println("## 역이름을 입력하세요.");
+
+        return StationRepository.findStation(scanner.nextLine().trim());
+    }
+
+    private int getOrder() {
+        System.out.println("순서를 입력하세요.");
+
+        try {
+            return Integer.parseInt(scanner.nextLine().trim());
+        } catch (NumberFormatException numberFormatException) {
+            throw new IllegalArgumentException("순서는 정수만 가능합니다.");
+        }
+    }
 }
