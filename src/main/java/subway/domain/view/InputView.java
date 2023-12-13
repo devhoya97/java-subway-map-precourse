@@ -9,6 +9,7 @@ import subway.domain.StationRepository;
 import subway.domain.command.Command;
 import subway.domain.command.LineManageCommand;
 import subway.domain.command.MainCommand;
+import subway.domain.command.SectionManageCommand;
 import subway.domain.command.StationManageCommand;
 
 public class InputView {
@@ -161,5 +162,29 @@ public class InputView {
                 outputView.printErrorMessage(illegalArgumentException.getMessage());
             }
         }
+    }
+
+    public Command getValidSectionManageCommand() {
+        outputView.printSectionManageScreen();
+        while (true) {
+            try {
+                return getSectionManageCommand();
+            } catch (IllegalArgumentException illegalArgumentException) {
+                outputView.printErrorMessage(illegalArgumentException.getMessage());
+            }
+        }
+    }
+
+    private Command getSectionManageCommand() {
+        System.out.println("## 원하는 기능을 선택하세요.");
+        String input = scanner.nextLine();
+
+        for (Command sectionManageCommand : SectionManageCommand.values()) {
+            if (Objects.equals(sectionManageCommand.get(), input)) {
+                return sectionManageCommand;
+            }
+        }
+
+        throw new IllegalArgumentException("준비된 기능이 아닙니다.");
     }
 }
