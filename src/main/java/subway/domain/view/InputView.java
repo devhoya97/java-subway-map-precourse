@@ -78,4 +78,17 @@ public class InputView {
         }
     }
 
+    public void deleteStationByInput() {
+        System.out.println("## 삭제할 역 이름을 입력하세요.");
+        while (true) {
+            try {
+                String input = scanner.nextLine().trim();
+                StationRepository.deleteStation(input);
+                return;
+            } catch (IllegalArgumentException illegalArgumentException) {
+                outputView.printErrorMessage(illegalArgumentException.getMessage());
+            }
+        }
+    }
+
 }
