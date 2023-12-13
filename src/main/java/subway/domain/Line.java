@@ -1,13 +1,18 @@
 package subway.domain;
 
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Objects;
 
 public class Line {
     private static final int MIN_NAME_LENGTH = 2;
-    private String name;
+    private final String name;
+    private final List<Station> stations = new LinkedList<>();
 
-    public Line(String name) {
+    public Line(String name, Station upBoundStation, Station downBoundStation) {
         this.name = name;
+        stations.add(upBoundStation);
+        stations.add(downBoundStation);
     }
 
     private void validateName(String name) {
