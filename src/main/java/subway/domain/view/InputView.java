@@ -2,6 +2,8 @@ package subway.domain.view;
 
 import java.util.Objects;
 import java.util.Scanner;
+import subway.domain.Station;
+import subway.domain.StationRepository;
 import subway.domain.command.Command;
 import subway.domain.command.MainCommand;
 import subway.domain.command.StationManageCommand;
@@ -26,7 +28,7 @@ public class InputView {
     }
 
     private Command getMainCommand() {
-        outputView.printMessage("## 원하는 기능을 선택하세요.");
+        System.out.println("## 원하는 기능을 선택하세요.");
         String input = scanner.nextLine();
 
         for (Command mainCommand : MainCommand.values()) {
@@ -50,7 +52,7 @@ public class InputView {
     }
 
     private Command getStationManageCommand() {
-        outputView.printMessage("## 원하는 기능을 선택하세요.");
+        System.out.println("## 원하는 기능을 선택하세요.");
         String input = scanner.nextLine();
 
         for (Command stationManageCommand : StationManageCommand.values()) {
@@ -62,5 +64,18 @@ public class InputView {
         throw new IllegalArgumentException("준비된 기능이 아닙니다.");
     }
 
+    public Station getStationForRegister() {
+        System.out.println("## 등록할 역 이름을 입력하세요.");
+        while (true) {
+            try {
+                Station station = new Station(scanner.nextLine().trim());
+                StationRepository.addStation(station);
+                outputView.printInfoMessage("지하철 역이 등록되었습니다.");
+                return station;
+            } catch (IllegalArgumentException illegalArgumentException) {
+                outputView.printErrorMessage(illegalArgumentException.getMessage());
+            }
+        }
+    }
 
 }

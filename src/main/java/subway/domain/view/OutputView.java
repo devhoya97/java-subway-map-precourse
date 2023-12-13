@@ -6,8 +6,8 @@ import subway.domain.command.StationManageCommand;
 
 public class OutputView {
 
-    public void printMessage(String message) {
-        System.out.println(message);
+    public void printInfoMessage(String message) {
+        System.out.println("[INFO] " + message);
     }
 
     public void printErrorMessage(String errorMessage) {
