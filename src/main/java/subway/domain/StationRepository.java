@@ -23,7 +23,23 @@ public class StationRepository {
         }
     }
 
-    public static boolean deleteStation(String name) {
-        return stations.removeIf(station -> Objects.equals(station.getName(), name));
+    public static void deleteStation(String name) throws IllegalArgumentException {
+        Station station = findStation(name);
+
+        if (station.isInLine()) {
+            throw new IllegalArgumentException(station.getName() + "은 노선에 포함되어 있어 제거가 불가합니다.");
+        }
+
+        stations.remove(station);
+    }
+
+    private static Station findStation(String name) {
+        for (Station station : stations) {
+            if (station.match(name)) {
+                return station;
+            }
+        }
+
+        throw new IllegalArgumentException(name + "은 등록된 역이 아닙니다.");
     }
 }
