@@ -2,6 +2,7 @@ package subway.domain.view;
 
 import java.util.Objects;
 import java.util.Scanner;
+import subway.domain.Line;
 import subway.domain.Station;
 import subway.domain.StationRepository;
 import subway.domain.command.Command;
@@ -65,7 +66,7 @@ public class InputView {
         throw new IllegalArgumentException("준비된 기능이 아닙니다.");
     }
 
-    public Station getStationForRegister() {
+    public Station getStationWithRegister() {
         System.out.println("## 등록할 역 이름을 입력하세요.");
         while (true) {
             try {
@@ -116,4 +117,34 @@ public class InputView {
         throw new IllegalArgumentException("준비된 기능이 아닙니다.");
     }
 
+    public Line getLineWithRegister() {
+        while (true) {
+            try {
+                return new Line(getLineName(), getUpBoundStation(), getDownBoundStation());
+            } catch (IllegalArgumentException illegalArgumentException) {
+                outputView.printErrorMessage(illegalArgumentException.getMessage());
+            }
+        }
+    }
+
+    private String getLineName() {
+        System.out.println("## 등록할 노선 이름을 입력하세요.");
+
+        String lineName = scanner.nextLine().trim();
+        Line.validateName(lineName);
+
+        return lineName;
+    }
+
+    private Station getUpBoundStation() {
+        System.out.println("## 등록할 노선의 상행 종점역 이름을 입력하세요.");
+
+        return StationRepository.findStation(scanner.nextLine().trim());
+    }
+
+    private Station getDownBoundStation() {
+        System.out.println("## 등록할 노선의 하행 종점역 이름을 입력하세요.");
+
+        return StationRepository.findStation(scanner.nextLine().trim());
+    }
 }

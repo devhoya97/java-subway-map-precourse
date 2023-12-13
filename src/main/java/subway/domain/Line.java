@@ -13,12 +13,13 @@ public class Line {
     private final List<Station> stations = new LinkedList<>();
 
     public Line(String name, Station upBoundStation, Station downBoundStation) {
+        validateName(name);
         this.name = name;
         stations.add(upBoundStation);
         stations.add(downBoundStation);
     }
 
-    private void validateName(String name) {
+    public static void validateName(String name) {
         if (name.length() < MIN_NAME_LENGTH) {
             throw new IllegalArgumentException("노선 이름의 최소 길이는 " + MIN_NAME_LENGTH + "입니다.");
         }

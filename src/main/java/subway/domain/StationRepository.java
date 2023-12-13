@@ -33,7 +33,7 @@ public class StationRepository {
         stations.remove(station);
     }
 
-    private static Station findStation(String name) {
+    public static Station findStation(String name) {
         for (Station station : stations) {
             if (station.match(name)) {
                 return station;
