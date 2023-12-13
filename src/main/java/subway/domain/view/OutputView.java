@@ -1,5 +1,7 @@
 package subway.domain.view;
 
+import subway.domain.Line;
+import subway.domain.LineRepository;
 import subway.domain.Station;
 import subway.domain.StationRepository;
 import subway.domain.command.Command;
@@ -50,6 +52,13 @@ public class OutputView {
         System.out.println("## 역 목록");
         for (Station station : StationRepository.stations()) {
             printInfoMessage(station.getName());
+        }
+    }
+
+    public void printLineList() {
+        System.out.println("## 노선 목록");
+        for (Line line : LineRepository.lines()) {
+            printInfoMessage(line.getName());
         }
     }
 }
