@@ -1,5 +1,7 @@
 package subway.domain.view;
 
+import subway.domain.Station;
+import subway.domain.StationRepository;
 import subway.domain.command.Command;
 import subway.domain.command.LineManageCommand;
 import subway.domain.command.MainCommand;
@@ -41,6 +43,13 @@ public class OutputView {
         System.out.println("## 구간 관리 화면");
         for (Command sectionManageCommand : SectionManageCommand.values()) {
             System.out.println(sectionManageCommand.get() + ". " + sectionManageCommand.getName());
+        }
+    }
+
+    public void printStationList() {
+        System.out.println("## 역 목록");
+        for (Station station : StationRepository.stations()) {
+            printInfoMessage(station.getName());
         }
     }
 }
