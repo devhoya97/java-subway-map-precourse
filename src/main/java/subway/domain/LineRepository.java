@@ -25,7 +25,19 @@ public class LineRepository {
         }
     }
 
-    public static boolean deleteLineByName(String name) {
-        return lines.removeIf(line -> Objects.equals(line.getName(), name));
+    public static void deleteLineByName(String name) throws IllegalArgumentException {
+        Line line = findLineByName(name);
+
+        lines.remove(line);
+    }
+
+    private static Line findLineByName(String name) {
+        for (Line line : lines) {
+            if (Objects.equals(line.getName(), name)) {
+                return line;
+            }
+        }
+
+        throw new IllegalArgumentException(name + "은 등록된 노선이 아닙니다.");
     }
 }
