@@ -7,6 +7,8 @@ import java.util.Objects;
 
 public class Line {
     private static final int MIN_NAME_LENGTH = 2;
+    private static final int MIN_STATIONS_SIZE = 2;
+
     private final String name;
     private final List<Station> stations = new LinkedList<>();
 
@@ -33,6 +35,25 @@ public class Line {
         stations.add(nextStationIndex, newStation);
     }
 
+    public void deleteStation(Station station) {
+        validateStationsSize();
+        validateIsStationInLine(station);
+
+        stations.remove(station);
+    }
+
+    private void validateStationsSize() {
+        if (stations.size() == MIN_STATIONS_SIZE) {
+            throw new IllegalArgumentException("노선은 최소 " + MIN_STATIONS_SIZE + "개의 역을 가져야 합니다.");
+        }
+    }
+
+    private void validateIsStationInLine(Station station) {
+        if (!stations.contains(station)) {
+            throw new IllegalArgumentException(station.getName() + "은 노선에 포함되어 있지 않습니다.");
+        }
+    }
+
     public String getName() {
         return name;
     }
@@ -44,5 +65,6 @@ public class Line {
     public List<Station> getStations() {
         return Collections.unmodifiableList(stations);
     }
+
     // 추가 기능 구현
 }
