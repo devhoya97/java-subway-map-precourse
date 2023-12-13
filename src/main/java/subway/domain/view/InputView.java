@@ -223,4 +223,29 @@ public class InputView {
             throw new IllegalArgumentException("순서는 정수만 가능합니다.");
         }
     }
+
+    public void deleteSectionByInput() {
+        while (true) {
+            try {
+                Line line = findLineForDeleteByInput();
+                line.deleteStation(findSectionForDeleteByInput());
+                outputView.printInfoMessage("구간이 삭제되었습니다.");
+                break;
+            } catch (IllegalArgumentException illegalArgumentException) {
+                outputView.printErrorMessage(illegalArgumentException.getMessage());
+            }
+        }
+    }
+
+    private Line findLineForDeleteByInput() {
+        System.out.println("## 삭제할 구간의 노선을 입력하세요.");
+
+        return LineRepository.findLineByName(scanner.nextLine().trim());
+    }
+
+    private Station findSectionForDeleteByInput() {
+        System.out.println("## 삭제할 구간의 역을 입력하세요.");
+
+        return StationRepository.findStation(scanner.nextLine().trim());
+    }
 }
