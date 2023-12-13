@@ -61,4 +61,16 @@ public class OutputView {
             printInfoMessage(line.getName());
         }
     }
+
+    public void printSubwayRouteMap() {
+        System.out.println("## 지하철 노선도");
+        for (Line line : LineRepository.lines()) {
+            printInfoMessage(line.getName());
+            printInfoMessage("---");
+            for (Station station : line.getStations()) {
+                printInfoMessage(station.getName());
+            }
+            System.out.println();
+        }
+    }
 }
