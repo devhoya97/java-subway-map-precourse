@@ -3,6 +3,7 @@ package subway.domain.view;
 import java.util.Objects;
 import java.util.Scanner;
 import subway.domain.Line;
+import subway.domain.LineRepository;
 import subway.domain.Station;
 import subway.domain.StationRepository;
 import subway.domain.command.Command;
@@ -146,5 +147,19 @@ public class InputView {
         System.out.println("## 등록할 노선의 하행 종점역 이름을 입력하세요.");
 
         return StationRepository.findStation(scanner.nextLine().trim());
+    }
+
+    public void deleteLineByInput() {
+        System.out.println("## 삭제할 노선 이름을 입력하세요.");
+
+        while (true) {
+            try {
+                LineRepository.deleteLineByName(scanner.nextLine().trim());
+                outputView.printInfoMessage("지하철 노선이 삭제되었습니다.");
+                break;
+            } catch (IllegalArgumentException illegalArgumentException) {
+                outputView.printErrorMessage(illegalArgumentException.getMessage());
+            }
+        }
     }
 }
