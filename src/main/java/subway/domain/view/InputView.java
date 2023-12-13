@@ -68,14 +68,14 @@ public class InputView {
         throw new IllegalArgumentException("준비된 기능이 아닙니다.");
     }
 
-    public Station getStationWithRegister() {
+    public void registerStation() {
         System.out.println("## 등록할 역 이름을 입력하세요.");
         while (true) {
             try {
                 Station station = new Station(scanner.nextLine().trim());
                 StationRepository.addStation(station);
                 outputView.printInfoMessage("지하철 역이 등록되었습니다.");
-                return station;
+                break;
             } catch (IllegalArgumentException illegalArgumentException) {
                 outputView.printErrorMessage(illegalArgumentException.getMessage());
             }
@@ -88,6 +88,7 @@ public class InputView {
             try {
                 String input = scanner.nextLine().trim();
                 StationRepository.deleteStation(input);
+                outputView.printInfoMessage("지하철 역이 삭제되었습니다.");
                 return;
             } catch (IllegalArgumentException illegalArgumentException) {
                 outputView.printErrorMessage(illegalArgumentException.getMessage());
@@ -119,10 +120,12 @@ public class InputView {
         throw new IllegalArgumentException("준비된 기능이 아닙니다.");
     }
 
-    public Line getLineWithRegister() {
+    public void registerLine() {
         while (true) {
             try {
-                return new Line(getLineName(), getUpBoundStation(), getDownBoundStation());
+                LineRepository.addLine(new Line(getLineName(), getUpBoundStation(), getDownBoundStation()));
+                outputView.printInfoMessage("지하철 노선이 등록되었습니다.");
+                break;
             } catch (IllegalArgumentException illegalArgumentException) {
                 outputView.printErrorMessage(illegalArgumentException.getMessage());
             }
